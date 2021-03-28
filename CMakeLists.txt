@@ -14,10 +14,12 @@ project(pico-midi)
 pico_sdk_init()
 
 # rest of your projecte
-add_executable(midi src/main.c)
+add_executable(midi src/main.c src/usb_descriptors.c)
+
+target_include_directories(midi PRIVATE ${CMAKE_CURRENT_LIST_DIR}/src)
 
 # Add pico_stdlib library which aggregates commonly used features
-target_link_libraries(midi pico_stdlib hardware_adc)
+target_link_libraries(midi pico_stdlib hardware_adc tinyusb_device tinyusb_board)
 
 # create map/bin/hex file etc.
 pico_add_extra_outputs(midi)
